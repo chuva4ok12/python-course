@@ -7,14 +7,30 @@
 # При этом английские числительные должны заменяться на русские. Новый блок строк должен записываться
 # в новый текстовый файл.
 
-rus = {'One': 'Один', 'Two': 'Два', 'Three': 'Три', 'Four': 'Четыре'}
-new_file = []
-with open('test_4.txt', encoding='utf-8') as file_obj:
+# rus = {'One': 'Один', 'Two': 'Два', 'Three': 'Три', 'Four': 'Четыре'}
+# new_file = []
+# with open('test_4.txt', encoding='utf-8') as file_obj:
+#
+#     for i in file_obj:
+#         i = i.split(' ', 1)
+#         new_file.append(rus[i[0]] + '  ' + i[1])
+#     print(new_file)
+#
+# with open('test_4_new.txt', 'w', encoding='utf-8') as file_obj_2:
+#     file_obj_2.writelines(new_file)
+with open('test_4.txt', encoding='utf-8') as f:
+    lines = f.readlines()
 
-    for i in file_obj:
-        i = i.split(' ', 1)
-        new_file.append(rus[i[0]] + '  ' + i[1])
-    print(new_file)
-
-with open('test_4_new.txt', 'w', encoding='utf-8') as file_obj_2:
-    file_obj_2.writelines(new_file)
+with open('test_4_new.txt', 'w', encoding='utf-8') as f:
+    for line in lines:
+        if '1' in line:
+            line = line.replace('One', 'Один')
+        elif '2' in line:
+            line = line.replace('Two', 'Два')
+        elif '3' in line:
+            line = line.replace('Three', 'Три')
+        elif '4' in line:
+            line = line.replace('Four', 'Четыре')
+        #     в скобках что меняем и на какой аргумент
+        f.write(line)
+print(lines)
