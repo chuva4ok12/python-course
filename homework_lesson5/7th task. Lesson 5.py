@@ -12,30 +12,51 @@
 #
 # Подсказка: использовать менеджеры контекста.
 
+# import json
+# profit = {}
+# pr = {}
+# prof = 0
+# prof_aver = 0
+# i = 0
+# with open('test_7.txt', encoding='utf-8') as file:
+#     for line in file:
+#         name, firm, earning, damage = line.split()
+#         profit[name] = int(earning) - int(damage)
+#         if profit.setdefault(name) >= 0:
+#             prof = prof + profit.setdefault(name)
+#             i += 1
+#     if i != 0:
+#         prof_aver = prof / i
+#         print(f'Прибыль средняя - {prof_aver:.2f}')
+#     else:
+#         print(f'Прибыль средняя - отсутствует. Работают без прибыли')
+#     pr = {'средняя прибыль': round(prof_aver)}
+#     profit.update(pr)
+#     print(f'Прибыль каждой компании - {profit}')
+#
+# with open('file_7.json', 'w') as write_js:
+#     json.dump(profit, write_js)
+#     js_str = json.dumps(profit)
+#     print(f'Создан файл с расширением json со следующим содержимым: '
+#           f' {js_str}')
 import json
-profit = {}
-pr = {}
-prof = 0
-prof_aver = 0
-i = 0
-with open('test_7.txt', encoding='utf-8') as file:
-    for line in file:
-        name, firm, earning, damage = line.split()
-        profit[name] = int(earning) - int(damage)
-        if profit.setdefault(name) >= 0:
-            prof = prof + profit.setdefault(name)
-            i += 1
-    if i != 0:
-        prof_aver = prof / i
-        print(f'Прибыль средняя - {prof_aver:.2f}')
-    else:
-        print(f'Прибыль средняя - отсутствует. Работают без прибыли')
-    pr = {'средняя прибыль': round(prof_aver)}
-    profit.update(pr)
-    print(f'Прибыль каждой компании - {profit}')
 
-with open('file_7.json', 'w') as write_js:
-    json.dump(profit, write_js)
-    js_str = json.dumps(profit)
-    print(f'Создан файл с расширением json со следующим содержимым: '
-          f' {js_str}')
+firm_dict = {}
+average_profit = []
+with open('test_7.txt', encoding="utf-8") as f:
+    lines = f.readlines()
+    for line in lines:
+        name, form, revenue, costs = line.split()
+        profit = int(revenue) - int(costs)
+        firm_dict[name] = profit
+        if profit > 0:
+            average_profit.append(profit)
+
+average_profit = sum(average_profit) / len(average_profit)
+out_info = [firm_dict, {'average_profit': average_profit}]
+
+with open('file_7.json', 'w') as f_json:
+    json.dump(out_info, f_json)
+
+with open('file_7.json') as f_json:
+    print(json.load(f_json))
